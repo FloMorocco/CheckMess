@@ -11,12 +11,16 @@ const Chessboard = () => {
     useEffect(() => {
         fetch('http://127.0.0.1:5000/api/board?game_id=1')
             .then(response => response.json())
-            .then(data => setBoard(data.board_state))  // Updated key to match backend response
+            .then(data => {
+                console.log('Board data:', data); // Debugging log
+                setBoard(data.board_state); // Ensure this matches your backend response key
+            })
             .catch(error => console.error('Error fetching board data:', error));
 
         socket.emit('join', { game_id: '1' });
 
         socket.on('move', data => {
+            console.log('Move event received:', data); // Debugging log
             if (data.success) {
                 setBoard(data.board);
             }
@@ -29,10 +33,10 @@ const Chessboard = () => {
 
     const handleSquareClick = (row, col) => {
         const currentSquare = `${String.fromCharCode(97 + col)}${8 - row}`;
-        console.log('Square clicked:', currentSquare);
+        console.log('Square clicked:', currentSquare); // Debugging log
         if (selectedSquare) {
             const move = `${selectedSquare}${currentSquare}`;
-            console.log('Move attempted:', move);
+            console.log('Move attempted:', move); // Debugging log
             fetch('http://127.0.0.1:5000/api/move', {
                 method: 'POST',
                 headers: {
@@ -42,7 +46,7 @@ const Chessboard = () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Move response:', data);
+                    console.log('Move response:', data); // Debugging log
                     if (data.success) {
                         setBoard(data.board);
                         socket.emit('move', { game_id: '1', move });
@@ -67,6 +71,7 @@ const Chessboard = () => {
             'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
         };
         const currentSquare = `${String.fromCharCode(97 + col)}${8 - row}`;
+        console.log('Rendering square:', currentSquare, 'with piece:', pieceSymbols[square]); // Debugging log
         return (
             <div
                 key={col}
@@ -80,6 +85,7 @@ const Chessboard = () => {
 
     const renderBoard = () => {
         if (!board) return <p>Loading board...</p>;
+        console.log('Rendering board with state:', board); // Debugging log
         const rows = board.split(' ')[0].split('/');
         return rows.map((row, i) => (
             <div key={i} className="row">
