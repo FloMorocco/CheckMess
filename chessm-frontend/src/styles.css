@@ -1,10 +1,13 @@
 .board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .board-grid {
     display: grid;
-    grid-template-columns: repeat(8, 50px); /* Adjust the size as necessary */
-    grid-template-rows: repeat(8, 50px);    /* Adjust the size as necessary */
-    gap: 0; /* Ensure there is no gap between squares */
-    width: 400px; /* Ensure the width matches 8 columns of 50px each */
-    height: 400px; /* Ensure the height matches 8 rows of 50px each */
+    grid-template-columns: repeat(8, 50px);
+    grid-template-rows: repeat(8, 50px);
   }
   
   .square {
@@ -13,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #000; /* Optional: add a border to see the squares more clearly */
+    font-size: 24px;
   }
   
   .white-square {
@@ -25,14 +28,6 @@
   }
   
   .selected-square {
-    outline: 3px solid yellow; /* Highlight selected square */
-  }
-  
-  .board-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    width: 100%;
-    height: 100%;
+    border: 2px solid yellow;
   }
   

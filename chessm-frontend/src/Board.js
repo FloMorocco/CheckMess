@@ -31,20 +31,17 @@ const Board = ({ boardState, onMove }) => {
     const squares = [];
     let index = 0;
 
-    for (let char of boardState) {
-      if (char === '/') {
-        continue;
-      } else if (!isNaN(char)) {
-        const emptySpaces = parseInt(char);
-        for (let i = 0; i < emptySpaces; i++) {
+    for (let row of boardState.split('/')) {
+      for (let char of row) {
+        if (char === ' ') {
           squares.push(renderSquare(' ', index++));
+        } else {
+          squares.push(renderSquare(char, index++));
         }
-      } else {
-        squares.push(renderSquare(char, index++));
       }
     }
 
-    return <div className="board">{squares}</div>;
+    return <div className="board-grid">{squares}</div>;
   };
 
   return <div className="board">{renderBoard()}</div>;
