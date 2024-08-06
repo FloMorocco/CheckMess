@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Board = ({ boardState, onMove, spells }) => {
+const Board = ({ boardState, onMove }) => {
   const [selectedSquare, setSelectedSquare] = useState(null);
 
   const handleSquareClick = (index) => {
@@ -26,18 +26,6 @@ const Board = ({ boardState, onMove, spells }) => {
     );
   };
 
-  const applySpellEffects = (piece, index) => {
-    let spellEffect = '';
-    if (spells) {
-      spells.forEach(spell => {
-        if (spell.target_piece === index) {
-          spellEffect = ` spell-${spell.id}`; // Example class for spell effect
-        }
-      });
-    }
-    return spellEffect;
-  };
-
   const renderBoard = () => {
     if (!boardState) return null;
     const squares = [];
@@ -52,8 +40,7 @@ const Board = ({ boardState, onMove, spells }) => {
           squares.push(renderSquare(' ', index++));
         }
       } else {
-        const spellEffect = applySpellEffects(char, index);
-        squares.push(renderSquare(char, index++, spellEffect));
+        squares.push(renderSquare(char, index++));
       }
     }
 
