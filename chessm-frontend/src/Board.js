@@ -44,7 +44,7 @@ const Board = ({ boardState, onMove }) => {
       }
     }
 
-    return <div className="board-grid">{squares}</div>;
+    return <div className="board">{squares}</div>;
   };
 
   return <div className="board">{renderBoard()}</div>;
